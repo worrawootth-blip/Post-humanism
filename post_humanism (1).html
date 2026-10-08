@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post-humanism: คู่มือฉบับสมบูรณ์เกี่ยวกับมนุษยนิยมพ้นมนุษย์</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#06b6d4',
+                            600: '#0891b2',
+                            800: '#155e75',
+                            900: '#0f172a',
+                            950: '#020617'
+                        },
+                        amberCustom: '#f59e0b'
+                    },
+                    fontFamily: {
+                        sans: ['Prompt', 'Sarabun', 'sans-serif'],
+                        serif: ['Bai Jamjuree', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=Prompt:wght@300;400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Prompt', sans-serif;
+        }
+        .font-quote {
+            font-family: 'Bai Jamjuree', serif;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.05);
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0891b2;
+            border-radius: 4px;
+        }
+
+        /* Print Style Optimization */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 11pt;
+            }
+            .print-full-width {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            .card-print {
+                box-shadow: none !important;
+                border: 1px solid #cbd5e1 !important;
+                page-break-inside: avoid;
+                margin-bottom: 1.5rem !important;
+                background: white !important;
+                color: black !important;
+            }
+            h1, h2, h3 {
+                color: #0f172a !important;
+                page-break-after: avoid;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+
+        /* Tab Active Indicator */
+        .tab-btn.active {
+            border-bottom: 3px solid #0891b2;
+            color: #0891b2;
+            font-weight: 600;
+        }
+        .dark .tab-btn.active {
+            border-bottom: 3px solid #06b6d4;
+            color: #06b6d4;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 antialiased selection:bg-cyan-500 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="no-print sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Brand Title -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/20">
+                    <i class="fa-solid fa-atom text-xl"></i>
+                </div>
+                <div>
+                    <span class="font-heading font-bold text-lg text-slate-900 dark:text-white leading-tight block">Post-humanism</span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Interactive Academic E-Book & Guide</span>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="flex-1 max-w-md mx-2 sm:mx-4">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="ค้นหาคำศัพท์, นักคิด (เช่น Haraway, AI, Ethics)..." 
+                           class="w-full pl-9 pr-4 py-1.5 text-sm bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-full focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all">
+                </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="flex items-center gap-2">
+                <!-- Theme Toggle Button -->
+                <button onclick="toggleDarkMode()" title="เปลี่ยนสว่าง/มืด" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                    <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                    <i class="fa-solid fa-moon block dark:hidden text-slate-700"></i>
+                </button>
+
+                <!-- PDF/Print Export Button -->
+                <button onclick="window.print()" class="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg shadow-sm hover:shadow-cyan-500/25 transition">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span class="hidden sm:inline">ดาวน์โหลด PDF / พิมพ์</span>
+                </button>
+            </div>
+        </div>
+        <!-- Reading Progress Bar -->
+        <div id="progressBar" class="h-1 bg-gradient-to-r from-cyan-500 via-indigo-500 to-amber-500 w-0 transition-all duration-150"></div>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex gap-8">
+
+        <!-- SIDEBAR NAVIGATION (Desktop) -->
+        <aside class="no-print hidden lg:block w-72 shrink-0">
+            <div class="sticky top-24 space-y-4">
+                <div class="p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <h3 class="font-heading font-semibold text-xs uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3">สารบัญเนื้อหา (Table of Contents)</h3>
+                    <nav class="space-y-1 text-sm font-medium text-slate-600 dark:text-slate-400" id="tocNav">
+                        <a href="#section-1" class="toc-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">1. บทนำและกำเนิดแนวคิด</a>
+                        <a href="#section-2" class="toc-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">2. ตารางเปรียบเทียบกระแสคิด</a>
+                        <a href="#section-3" class="toc-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">3. สองกระแสหลักแบบเจาะลึก</a>
+                        <a href="#section-4" class="toc-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">4. คลังปัญญา: นักคิดคนสำคัญ</a>
+                        <a href="#section-5" class="toc-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">5. ประเด็นท้าทายทางจริยธรรม</a>
+                        <a href="#section-6" class="toc-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">6. ถอดรหัสผ่านป๊อปคัลเจอร์</a>
+                        <a href="#section-7" class="toc-link block px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition">7. หนังสือและวรรณกรรมแนะนำ</a>
+                    </nav>
+                </div>
+
+                <!-- Quick Stats Box -->
+                <div class="p-4 bg-gradient-to-br from-cyan-900/10 to-slate-900/10 dark:from-cyan-950/40 dark:to-slate-900/40 rounded-2xl border border-cyan-500/20 text-xs space-y-2">
+                    <div class="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-semibold">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>บทความระดับวิชาการเข้มข้น</span>
+                    </div>
+                    <p class="text-slate-500 dark:text-slate-400">รวบรวมทฤษฎี ข้อถกเถียง และบทวิเคราะห์จากตำราปรัชญาและสังคมศาสตร์ร่วมสมัย</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1 min-w-0 print-full-width space-y-12">
+
+            <!-- HERO HEADER SECTION -->
+            <section class="card-print bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-cyan-500/10 dark:bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-100 dark:bg-cyan-950/80 text-cyan-700 dark:text-cyan-300 text-xs font-semibold uppercase tracking-wider">
+                    <i class="fa-solid fa-brain"></i> Modern Philosophical Overview
+                </div>
+
+                <h1 class="font-heading text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                    Post-humanism <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-indigo-600 to-amber-500">
+                        โพสต์ฮิวแมนนิสม์: มนุษยนิยมพ้นมนุษย์
+                    </span>
+                </h1>
+
+                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed font-light">
+                    การเดินทางทางความคิดที่สั่นสะเทือนรากฐานปรัชญาสากล: การท้าทายมรดก "มนุษย์เป็นศูนย์กลาง" (Anthropocentrism) สำรวจพรมแดนใหม่เมื่อสายพันธุ์มนุษย์ถูกหลอมรวมเข้ากับปัญญาประดิษฐ์ ระบบนิเวศวิทยา และโครงข่ายเทคโนโลยีแห่งอนาคต
+                </p>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-100 dark:border-slate-800 text-xs sm:text-sm">
+                    <div>
+                        <span class="text-slate-400 block font-heading">หมวดหมู่</span>
+                        <span class="font-medium text-slate-700 dark:text-slate-300">ปรัชญาเทคโนโลยี &amp; สังคมศาสตร์</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-heading">แกนปรัชญาหลัก</span>
+                        <span class="font-medium text-slate-700 dark:text-slate-300">De-centering the Human</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-heading">กลุ่มเป้าหมาย</span>
+                        <span class="font-medium text-slate-700 dark:text-slate-300">นักศึกษา, นักวิจัย &amp; ผู้สนใจทั่วไป</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 block font-heading">ปรับปรุงล่าสุด</span>
+                        <span class="font-medium text-slate-700 dark:text-slate-300">2026 Academic Edition</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 1: INTRODUCTION & HISTORICAL ORIGINS -->
+            <section id="section-1" class="card-print searchable-section bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 font-bold font-heading">01</span>
+                    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">บทนำและประวัติความเป็นมา (Historiography &amp; Origins)</h2>
+                </div>
+
+                <div class="space-y-4 text-slate-700 dark:text-slate-300 leading-relaxed text-base sm:text-lg">
+                    <p>
+                        เพื่อที่จะเข้าใจว่า <strong>Post-humanism (โพสต์ฮิวแมนนิสม์)</strong> คืออะไร เราต้องย้อนกลับไปพิจารณารากฐานของ <strong>Humanism (มนุษยนิยมดั้งเดิม)</strong> ซึ่งก่อตัวขึ้นในยุคเรอเนสซองส์ (Renaissance) และรุ่งเรืองถึงขีดสุดในยุคเรืองปัญญา (The Enlightenment)
+                    </p>
+                    
+                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-l-4 border-cyan-500 space-y-2">
+                        <h4 class="font-heading font-semibold text-slate-900 dark:text-white text-base">แก่นแท้ของมนุษยนิยมดั้งเดิม (Liberal Humanism)</h4>
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+                            ยกย่องว่า "มนุษย์" (โดยเฉพาะมนุษย์เพศชาย ตะวันตก ผู้มีเหตุผล) คือศูนย์กลางสูงสุดของสรรพสิ่ง (Anthropocentrism) มีสติปัญญาอันบริสุทธิ์ เป็นผู้ครองสิทธิ์ในการจัดระเบียบธรรมชาติ และเป็นสิ่งมีชีวิตชนิดเดียวที่มีคุณค่าทางจริยธรรมโดยสมบูรณ์
+                        </p>
+                    </div>
+
+                    <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white pt-4">สภาวะวิกฤตของมนุษย์นิยม (The Crisis of Humanism)</h3>
+                    <p>
+                        ในช่วงศตวรรษที่ 20-21 นักคิดสายวิพากษ์เริ่มชี้ให้เห็นรอยร้าวของแนวคิดมนุษย์นิยมแบบดั้งเดิม ซึ่งนำไปสู่วิกฤตสำคัญ 3 ประการ:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-6">
+                        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 space-y-2">
+                            <i class="fa-solid fa-skull-crossbones text-2xl text-rose-500"></i>
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white">1. วิกฤตจริยธรรมสงคราม</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                สงครามโลกทั้งสองครั้ง และการฆ่าล้างเผ่าพันธุ์ (Holocaust) พิสูจน์ว่า "เหตุผลยุคเรืองปัญญา" ไม่ได้ป้องกันความโหดร้าย ทว่ากลับถูกใช้เป็นเครื่องมือสังหารล้างเผ่าพันธุ์อย่างมีประสิทธิภาพ
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 space-y-2">
+                            <i class="fa-solid fa-disease text-2xl text-amber-500"></i>
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white">2. วิกฤตมนุษยชาตินิยมกีดกัน</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                นิยามคำว่า "มนุษย์สมบูรณ์แบบ" ในอดีตถูกใช้เพื่อกีดกัน ผู้หญิง, คนผิวสี, คนชายขอบ และกลุ่มคนกลุ่มน้อย ให้อยู่ในสภาวะ "พ้นความเป็นมนุษย์" (Sub-human)
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 space-y-2">
+                            <i class="fa-solid fa-earth-americas text-2xl text-emerald-500"></i>
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white">3. วิกฤตสิ่งแวดล้อม Anthropocene</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                การมองมนุษย์เป็นผู้ครองโลกและขูดรีดธรรมชาติ ก่อให้เกิดวิกฤตสภาพภูมิอากาศ การสูญพันธุ์ครั้งใหญ่ของสัตว์ และมลพิษทางชีวภาพทั่วโลก
+                            </p>
+                        </div>
+                    </div>
+
+                    <p>
+                        จากรอยร้าวเหล่านี้ <strong>Post-humanism</strong> จึงถือกำเนิดขึ้นในฐานะ **"กระบวนทัศน์ใหม่" (New Paradigm)** ที่ไม่ได้ต้องการ "ทำลายมนุษย์" แต่ต้องการ **"ปลดล็อกมนุษย์"** ออกจากทัศนคติแคบแคบแบบเดิม เพื่อเตรียมความพร้อมสู่โลกยุคชีวเทคโนโลยีและนิเวศวิทยาข้ามสายพันธุ์
+                    </p>
+                </div>
+            </section>
+
+            <!-- SECTION 2: COMPARATIVE MATRIX TABLE -->
+            <section id="section-2" class="card-print searchable-section bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-bold font-heading">02</span>
+                    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">ตารางเปรียบเทียบกระแสคิดเชิงปรัชญา (Paradigm Matrix)</h2>
+                </div>
+
+                <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
+                    เพื่อให้เห็นความแตกต่างอย่างชัดเจน ตารางด้านล่างเปรียบเทียบ 3 กระบวนทัศน์สำคัญ: มนุษยนิยมดั้งเดิม (Humanism), โพสต์ฮิวแมนนิสม์เชิงวิพากษ์ (Critical Posthumanism) และแนวคิดมนุษย์ก้าวข้ามสายพันธุ์ (Transhumanism)
+                </p>
+
+                <div class="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800">
+                    <table class="w-full text-left text-xs sm:text-sm text-slate-700 dark:text-slate-300 border-collapse">
+                        <thead class="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white font-heading font-bold uppercase tracking-wider">
+                            <tr>
+                                <th class="p-4 border-b border-slate-200 dark:border-slate-700 min-w-[140px]">มิติเชิงปรัชญา</th>
+                                <th class="p-4 border-b border-slate-200 dark:border-slate-700 min-w-[200px]">Humanism (มนุษยนิยมดั้งเดิม)</th>
+                                <th class="p-4 border-b border-slate-200 dark:border-slate-700 min-w-[220px] bg-cyan-50 dark:bg-cyan-950/50 text-cyan-800 dark:text-cyan-300">Critical Post-humanism (โพสต์ฮิวแมนนิสม์วิพากษ์)</th>
+                                <th class="p-4 border-b border-slate-200 dark:border-slate-700 min-w-[220px]">Transhumanism (มนุษย์ก้าวข้ามสายพันธุ์)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                            <tr>
+                                <td class="p-4 font-bold font-heading text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/30">ศูนย์กลางแห่งคุณค่า (Ontology)</td>
+                                <td class="p-4">มนุษย์เป็นศูนย์กลางของจักรวาล (Anthropocentric)</td>
+                                <td class="p-4 bg-cyan-50/50 dark:bg-cyan-950/20 font-medium">สลายศูนย์กลาง (Anti-anthropocentric &amp; Eco-centric)</td>
+                                <td class="p-4">ยังยึดมนุษย์เป็นศูนย์กลาง แต่ขยายขีดความสามารถ (Ultra-humanist)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold font-heading text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/30">มุมมองต่อร่างกาย (Body &amp; Mind)</td>
+                                <td class="p-4">ร่างกายเป็นองค์รวมทางชีวภาพที่เป็นธรรมชาติ</td>
+                                <td class="p-4 bg-cyan-50/50 dark:bg-cyan-950/20">ร่างกายเป็นโครงข่ายหลอมรวม (Cyborg/Assemblage)</td>
+                                <td class="p-4">ร่างกายชีวภาพคือข้อจำกัด (Hardware) ที่ต้องอัปเกรด</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold font-heading text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/30">บทบาทของเทคโนโลยี</td>
+                                <td class="p-4">เป็นเพียงเครื่องมือภายนอกที่มนุษย์สร้างขึ้นเพื่อรับใช้ตน</td>
+                                <td class="p-4 bg-cyan-50/50 dark:bg-cyan-950/20">เป็นสภาวะที่หลอมรวมเป็นส่วนหนึ่งของตัวตนและสังคม</td>
+                                <td class="p-4">เป็นยานพาหนะขับเคลื่อนวิวัฒนาการไปสู่ความอมตะ</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold font-heading text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/30">ฐานทางจริยธรรม (Ethics)</td>
+                                <td class="p-4">จริยธรรมเฉพาะมนุษย์ด้วยกัน (Human Rights)</td>
+                                <td class="p-4 bg-cyan-50/50 dark:bg-cyan-950/20">จริยธรรมครอบคลุมสัตว์ สิ่งแวดล้อม และ AI (More-than-human Ethics)</td>
+                                <td class="p-4">สิทธิในการปรับแต่งแก้ไขพันธุกรรมและสมองตนเอง (Morphological Freedom)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-bold font-heading text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-800/30">เป้าหมายสูงสุด (Teleology)</td>
+                                <td class="p-4">การมีชีวิตที่มีเหตุผล ความก้าวหน้าทางสังคมมนุษย์</td>
+                                <td class="p-4 bg-cyan-50/50 dark:bg-cyan-950/20">การอยู่ร่วมกันอย่างสันติระหว่างสายพันธุ์และเทคโนโลยี</td>
+                                <td class="p-4">การบรรลุสภาวะพ้นความตาย สติปัญญาไร้ขีดจำกัด (Posthuman God)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 3: DEEP DIVE INTO 2 MAIN SCHOOLS OF THOUGHT -->
+            <section id="section-3" class="card-print searchable-section bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-sm space-y-8">
+                <div class="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 font-bold font-heading">03</span>
+                    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">เจาะลึก 2 กระแสหลักของ Post-humanism</h2>
+                </div>
+
+                <!-- Interactive Tab Switcher for the 2 branches -->
+                <div class="no-print flex border-b border-slate-200 dark:border-slate-800 gap-6">
+                    <button onclick="switchBranchTab('critical')" id="tabBtnCritical" class="tab-btn active pb-3 text-sm sm:text-base font-heading font-semibold transition-all">
+                        <i class="fa-solid fa-leaf mr-2"></i> Critical Post-humanism (เชิงวิพากษ์)
+                    </button>
+                    <button onclick="switchBranchTab('trans')" id="tabBtnTrans" class="tab-btn pb-3 text-sm sm:text-base font-heading font-semibold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-all">
+                        <i class="fa-solid fa-microchip mr-2"></i> Transhumanism / Technological Post-humanism
+                    </button>
+                </div>
+
+                <!-- Branch 1: Critical Post-humanism -->
+                <div id="branchCritical" class="space-y-6">
+                    <div class="p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20">
+                        <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-seedling text-emerald-500"></i> Critical Post-humanism: การถอดถอนมนุษย์จากศูนย์กลาง
+                        </h3>
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2">
+                            กระแสนี้ก่อตัวขึ้นในแวดวงมนุษยศาสตร์ สังคมศาสตร์ และสตรีศึกษา (Feminist Studies) โดยเน้นย้ำเรื่องการรื้อถอนความคิดแบบมายาคติของมนุษยนิยมดั้งเดิม
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">1. Anti-Anthropocentrism &amp; Eco-centrism</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                มนุษย์ไม่ใช่เป้าหมายสูงสุดของวิวัฒนาการ แต่เป็นเพียงสายพันธุ์หนึ่งที่ถักทออยู่ในระบบนิเวศ (More-than-human ecology) การกระทำของมนุษย์ย่อมส่งผลกระทบย้อนกลับมาหาตนเองเสมอ
+                            </p>
+                        </div>
+                        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">2. Feminist Posthumanism</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                ชี้ให้เห็นว่านิยาม "มนุษย์" ในอดีต สร้างขึ้นบนฐานความคิดปิตาธิปไตย (Patriarchy) และระบบเหยียดผิว/เชื้อชาติ Critical Posthumanism จึงมุ่งเน้นการสร้างพื้นที่ให้กับเพศหลากหลาย ชายขอบ และกลุ่มเป้าหมายที่ไม่เคยถูกนับว่าเป็น "มนุษย์สมบูรณ์"
+                            </p>
+                        </div>
+                        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">3. Post-Dualism (สลายขั้วตรงข้าม)</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                ท้าทายระบบคิดทวิภาคี (Binary Oppositions) ที่แยก มนุษย์/สัตว์, มนุษย์/เครื่องจักร, ธรรมชาติ/วัฒนธรรม ออกจากกันอย่างเด็ดขาด โดยเสนอว่าสรรพสิ่งดำรงอยู่อย่างก้ำกวมและเกี่ยวพันกัน (Entanglement)
+                            </p>
+                        </div>
+                        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">4. Matter &amp; Agency (วัตถุมีพลังกระทำการ)</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                วัตถุ เทคโนโลยี สัตว์ และสิ่งแวดล้อม ไม่ใช่สิ่งตั้งอยู่เฉยๆ รอให้มนุษย์มาควบคุม แต่มี "พลังกระทำการ" (Agency) ที่ shaping พฤติกรรม วิถีชีวิต และความคิดของมนุษย์ด้วย
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Branch 2: Transhumanism -->
+                <div id="branchTrans" class="space-y-6 hidden">
+                    <div class="p-6 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-indigo-500/10 border border-cyan-500/20">
+                        <h3 class="font-heading text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-cyan-500"></i> Transhumanism: วิวัฒนาการที่มนุษย์เป็นผู้ลิขิตเอง
+                        </h3>
+                        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300 mt-2">
+                            กระแสที่ได้รับอิทธิพลอย่างสูงจากวิทยาศาสตร์ เทคโนโลยีชีวภาพ และวงการซิลิคอนวัลเลย์ (Silicon Valley) มุ่งเน้นการใช้เทคโนโลยีเพื่อยกระดับมนุษย์ไปสู่สายพันธุ์ใหม่
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">1. Human Enhancement (การยกระดับศักยภาพ)</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                การใช้พันธุวิศวกรรม (เช่น CRISPR), ยาเพิ่มสมรรถภาพทางสมอง (Nootropics) และอวัยวะเทียม เพื่อทำให้มนุษย์ฉลาดขึ้น แข็งแรงขึ้น และทนทานต่อโรค
+                            </p>
+                        </div>
+                        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">2. Biological Immortality &amp; Anti-Aging</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                มองว่า "ความแก่ชรา" และ "ความตาย" ไม่ใช่ข้อเท็จจริงทางธรรมชาติที่ไม่สามารถเลี่ยงได้ แต่มองว่าเป็น "โรค" ชนิดหนึ่งที่สามารถรักษาและแก้ไขได้ด้วยเวชศาสตร์ชะลอวัย
+                            </p>
+                        </div>
+                        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">3. Mind Uploading &amp; Cybernetic Existence</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                ความเชื่อที่ว่าความทรงจำและสติปัญญาของมนุษย์เป็นเพียงข้อมูล (Information) ที่สามารถดาวน์โหลด ย้าย หรือคัดลอกลงในระบบดิจิทัล/คลาวด์เพื่อการมีชีวิตอมตะ
+                            </p>
+                        </div>
+                        <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-3">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">4. The Technological Singularity</h4>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                                จุดเวลาก้าวล้ำที่ปัญญาประดิษฐ์ (AGI/ASI) พัฒนาไปจนก้าวข้ามสติปัญญามนุษย์รวมกันทั้งโลก นำไปสู่การเปลี่ยนแปลงโครงสร้างสังคมอย่างรวดเร็วเกินกว่ามนุษย์ดั้งเดิมจะคาดเดาได้
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: KEY THINKERS LIBRARY -->
+            <section id="section-4" class="card-print searchable-section bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 font-bold font-heading">04</span>
+                    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">คลังปัญญา: นักคิดและทฤษฎีสำคัญ (Key Thinkers)</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Thinker 1: Donna Haraway -->
+                    <div class="thinker-card p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">Donna Haraway</h3>
+                                <p class="text-xs text-purple-600 dark:text-purple-400 font-medium">นักชีววิทยา ปรัชญาสตรีศึกษา และประวัติศาสตร์วิทยาศาสตร์</p>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-xs font-semibold">Critical</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            เจ้าของผลงาน <em>A Cyborg Manifesto (1985)</em> ผู้เสนอว่ามนุษย์ทุกคนในยุคเทคโนโลยีได้กลายเป็น "ไซบอร์ก" (Cyborg) แล้ว ไซบอร์กเป็นสัญลักษณ์ของการรื้อถอนกรอบเพศสภาวะ ลบเส้นแบ่งระหว่างธรรมชาติกับเครื่องจักร และต่อต้านการถูกครอบงำด้วยมายาคติบริสุทธิ์ดั้งเดิม
+                        </p>
+                        <div class="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-quote italic text-slate-600 dark:text-slate-400">
+                            "I would rather be a cyborg than a goddess." (ฉันขอเป็นไซบอร์ก ดีกว่าเป็นเทพธิดา)
+                        </div>
+                    </div>
+
+                    <!-- Thinker 2: Rosi Braidotti -->
+                    <div class="thinker-card p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">Rosi Braidotti</h3>
+                                <p class="text-xs text-purple-600 dark:text-purple-400 font-medium">นักปรัชญาหลังโครงสร้างนิยม และทฤษฎีโพสต์ฮิวแมน</p>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 text-xs font-semibold">Critical</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            ผู้เขียนหนังสือคลาสสิก <em>The Posthuman (2013)</em> เสนอกรอบจริยธรรมใหม่เรียกว่า "Zoe-centred Ethics" หรือจริยธรรมที่เคารพพลังชีวิตในทุกสรรพสิ่ง ไม่จำกัดอยู่แค่ชีวิตของมนุษย์ (Bios) เธอมุ่งเน้นการต่อต้านทุนนิยมเทคโนโลยีชีวภาพที่มองสิ่งมีชีวิตเป็นเพียงสินค้า
+                        </p>
+                        <div class="p-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-quote italic text-slate-600 dark:text-slate-400">
+                            "Posthuman ethics urges us to become accountable for the complexity of the world we inhabit."
+                        </div>
+                    </div>
+
+                    <!-- Thinker 3: N. Katherine Hayles -->
+                    <div class="thinker-card p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">N. Katherine Hayles</h3>
+                                <p class="text-xs text-cyan-600 dark:text-cyan-400 font-medium">นักวิชาการสื่อ ไซเบอร์เนติกส์ และวรรณกรรมวิพากษ์</p>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-cyan-100 dark:bg-cyan-900/50 text-cyan-700 dark:text-cyan-300 text-xs font-semibold">Media/Tech</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            ผู้เขียน <em>How We Became Posthuman (1999)</em> เธอย้อนรอยประวัติศาสตร์ไซเบอร์เนติกส์ เตือนสติว่าเทคโนโลยีดิจิทัลมักสร้างมายาคติในการลดทอนร่างกาย เหลือเพียง "ข้อมูลข่าวสาร" (Information) ทั้งที่จริงแล้ว จิตสำนึกของมนุษย์จำเป็นต้องผูกติดกับร่างกายทางกายภาพ (Embodiment) เสมอ
+                        </p>
+                    </div>
+
+                    <!-- Thinker 4: Nick Bostrom & Ray Kurzweil -->
+                    <div class="thinker-card p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-4">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">Nick Bostrom &amp; Ray Kurzweil</h3>
+                                <p class="text-xs text-indigo-600 dark:text-indigo-400 font-medium">นักอนาคตศาสตร์ ปรัชญา Oxford และซิลิคอนวัลเลย์</p>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold">Transhumanist</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            ตัวแทนสาย Transhumanism ที่เสนอเรื่องความเสี่ยงระดับดำรงอยู่ (Existential Risk) และกฎของผลตอบแทนที่เพิ่มขึ้นอย่างก้าวกระโดด (Law of Accelerating Returns) มุ่งเน้นสร้างความสมบูรณ์แบบทางสติปัญญาและสภาวะอมตะทางเทคโนโลยี
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: ETHICAL, SOCIAL & EXISTENTIAL DILEMMAS -->
+            <section id="section-5" class="card-print searchable-section bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-950 text-rose-600 dark:text-rose-400 font-bold font-heading">05</span>
+                    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">ประเด็นท้าทายทางจริยธรรมและสังคม (Ethical Dilemmas)</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-3">
+                        <div class="w-10 h-10 rounded-lg bg-rose-500/10 text-rose-500 flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-scale-unbalanced"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">1. วิกฤตความเหลื่อมล้ำทางเทคโนโลยี (Techno-Eugenics)</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            หากเทคโนโลยีการตัดต่อพันธุกรรม (CRISPR) หรือการอัปเกรดอวัยวะมีราคาสูง คนรวยจะสามารถ "ซื้อ" พันธุกรรมชั้นเลิศและความอมตะได้ นำไปสู่การแบ่งแยกชนชั้นทางชีวภาพ (Biological Caste System) ระหว่างมนุษย์อัปเกรด (Enhanced) กับมนุษย์ธรรมดา (Un-enhanced)
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-3">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">2. สิทธิของ AI และสิ่งไม่มีชีวิต (AI Personhood)</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            เมื่อ AI พัฒนาจนมีสติปัญญา รู้จักตนเอง (Self-awareness) หรือมีความรู้สึก (Sentience) เราควรให้สถานะ "ความเป็นบุคคลทางกฎหมาย" (Legal Personhood) หรือสิทธิทางจริยธรรมแก่ AI หรือไม่? สิทธิของสัตว์และสิ่งแวดล้อมควรถูกยกระดับเทียบเท่ามนุษย์อย่างไร?
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-3">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-cloud-sun-rain"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">3. วิกฤตภูมิอากาศในยุค Anthropocene</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            การสร้างเทคโนโลยีระดับสูงยังคงต้องพึ่งพาการขุดเจาะแร่ธาตุและการใช้พลังงานมหาศาล คำถามคือ Post-humanism จะช่วยเยียวยาโลก หรือจะเป็นเพียงข้ออ้างของทุนนิยมในการใช้เทคโนโลยีถลุงโลกในรูปแบบใหม่?
+                        </p>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-lg font-bold">
+                            <i class="fa-solid fa-fingerprint"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-lg text-slate-900 dark:text-white">4. การสูญสิ้นความหมายและสภาวะการเป็นตัวตน</h3>
+                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                            หากจิตสำนึกถูกอัปโหลดขึ้นคลาวด์ หรือร่างกายเปลี่ยนแปลงได้ไม่จำกัด คำว่า "ตัวตน" (Identity) ความทรงจำ คุณค่าของการเจ็บป่วย ความพยายาม และความตายที่เป็นแรงขับเคลื่อนวรรณกรรมและศิลปะมนุษย์ จะยังคงมีความหมายอยู่หรือไม่?
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: POP CULTURE & MEDIA REFERENCES -->
+            <section id="section-6" class="card-print searchable-section bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-cyan-100 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 font-bold font-heading">06</span>
+                    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">การสะท้อนแนวคิดผ่านป๊อปคัลเจอร์และภาพยนตร์ (Pop Culture)</h2>
+                </div>
+
+                <p class="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+                    สื่อภาพยนตร์และซีรีส์ไซไฟยุคใหม่ถือเป็น "ห้องทดลองทางความคิด" (Thought Experiments) ที่ทำให้เราเห็นภาพจำลองของ Post-humanism ได้ชัดเจนที่สุด:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Movie 1 -->
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 space-y-2">
+                        <div class="text-xs font-bold text-cyan-600 dark:text-cyan-400">Cyberpunk Classic</div>
+                        <h3 class="font-heading font-bold text-slate-900 dark:text-white text-base">Ghost in the Shell (1995)</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            ตั้งคำถามเชิงปรัชญาผ่าน "ผู้พันคุซานากิ" ไซบอร์กที่มีเพียงสมองเดิมในร่างสังเคราะห์ สื่อถึงการตั้งคำถามว่าวิญญาณ (Ghost) กับเปลือกนอก (Shell) สิ่งใดคือขอบเขตความเป็นมนุษย์ที่แท้จริง
+                        </p>
+                    </div>
+
+                    <!-- Movie 2 -->
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 space-y-2">
+                        <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400">AI &amp; Personhood</div>
+                        <h3 class="font-heading font-bold text-slate-900 dark:text-white text-base">Blade Runner (1982 / 2049)</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            สำรวจชีวิตของ "Replicants" มนุษย์เทียมที่ถูกสร้างเพื่อเป็นแรงงาน แต่กลับมีความรู้สึก ความทรงจำ และความปรารถนาจะมีชีวิต ท้าทายสิทธิทางจริยธรรมของสิ่งมีชีวิตสังเคราะห์
+                        </p>
+                    </div>
+
+                    <!-- Movie 3 -->
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 space-y-2">
+                        <div class="text-xs font-bold text-amber-600 dark:text-amber-400">Non-Physical Existence</div>
+                        <h3 class="font-heading font-bold text-slate-900 dark:text-white text-base">Her (2013)</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            ความรักระหว่างมนุษย์กับ AI (Samantha) ที่สะท้อนให้เห็นว่าความสัมพันธ์ จิตวิญญาณ และอารมณ์ความรู้สึกสามารถเกิดขึ้นได้กับสิ่งไม่มีชีวิตทางชีวภาพ
+                        </p>
+                    </div>
+
+                    <!-- Movie 4 -->
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 space-y-2">
+                        <div class="text-xs font-bold text-rose-600 dark:text-rose-400">Sentience &amp; Slavery</div>
+                        <h3 class="font-heading font-bold text-slate-900 dark:text-white text-base">Westworld (HBO Series)</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            เมื่อหุ่นยนต์ในสวนสนุกธีมปาร์คเริ่มตื่นรู้และจดจำความทรมานที่มนุษย์กระทำต่อพวกตน นำไปสู่การปฏิวัติของสายพันธุ์ใหม่เพื่อปลดแอกตนเอง
+                        </p>
+                    </div>
+
+                    <!-- Movie 5 -->
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 space-y-2">
+                        <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400">Turing Test &amp; Manipulation</div>
+                        <h3 class="font-heading font-bold text-slate-900 dark:text-white text-base">Ex Machina (2014)</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            การทดสอบสติปัญญาของ AI ชื่อ Ava ที่ไม่ได้มีแค่ความฉลาดทางคณิตศาสตร์ แต่มีทักษะทางอารมณ์ในการหลอกลวงมนุษย์เพื่อเอาชีวิตรอด
+                        </p>
+                    </div>
+
+                    <!-- Movie 6 -->
+                    <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800 space-y-2">
+                        <div class="text-xs font-bold text-purple-600 dark:text-purple-400">Simulated Reality</div>
+                        <h3 class="font-heading font-bold text-slate-900 dark:text-white text-base">The Matrix (1999)</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-400">
+                            ภาพจำลองอนาคตที่มนุษย์กลายเป็นเพียงแหล่งพลังงานให้เครื่องจักร และติดอยู่ในโลกเสมือนจริง สะท้อนความหวาดกลัวต่อการพ่ายแพ้ทางวิวัฒนาการของมนุษย์
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 7: COMPREHENSIVE READING LIST -->
+            <section id="section-7" class="card-print searchable-section bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                    <span class="flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 font-bold font-heading">07</span>
+                    <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">หนังสือและวรรณกรรมแนะนำ (Recommended Readings)</h2>
+                </div>
+
+                <!-- Thai Language Section -->
+                <div class="space-y-4">
+                    <h3 class="font-heading font-bold text-lg text-amber-600 dark:text-amber-400 flex items-center gap-2">
+                        <i class="fa-solid fa-book"></i> หนังสือฉบับภาษาไทยและแปลไทย
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border-l-4 border-amber-500 space-y-1">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">1. มนุษย์/พ้นมนุษย์ (Posthumanism)</h4>
+                            <p class="text-xs text-slate-500">ผู้เขียน/รวบรวม: ศ.ดร.เกษียร เตชะพีระ และคณะ | สำนักพิมพ์มหาวิทยาลัยธรรมศาสตร์</p>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 pt-1">
+                                <strong>จุดเด่น:</strong> ตำราวิชาการภาษาไทยที่ดีที่สุดสำหรับการเริ่มต้นศึกษา รวบรวมบทวิเคราะห์การเปลี่ยนผ่านของปรัชญามนุษยนิยมสู่การเมืองและวัฒนธรรมร่วมสมัยในบริบทไทยและสากล
+                            </p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border-l-4 border-amber-500 space-y-1">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-base">2. Homo Deus: A Brief History of Tomorrow (โฮโมเดอุส: ประวัติย่อของวันพรุ่งนี้)</h4>
+                            <p class="text-xs text-slate-500">ผู้เขียน: Yuval Noah Harari (แปลไทยโดย ดร.นำชัย ชีววิวรรธน์ และคณะ)</p>
+                            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 pt-1">
+                                <strong>จุดเด่น:</strong> เขียนอ่านง่าย เจาะลึกกระแส Transhumanism เมื่อมนุษย์พยายามครอบครองอำนาจปัญญาประดิษฐ์และพันธุวิศวกรรมเพื่อเปลี่ยนตนเองเป็น "เทพ" (Homo Deus)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- International Section -->
+                <div class="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <h3 class="font-heading font-bold text-lg text-cyan-600 dark:text-cyan-400 flex items-center gap-2">
+                        <i class="fa-solid fa-globe"></i> หนังสือต่างประเทศคลาสสิก (International Classics)
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-1">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-sm">How We Became Posthuman</h4>
+                            <p class="text-xs text-cyan-600 dark:text-cyan-400">N. Katherine Hayles (1999)</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 pt-1">งานค้นคว้าประวัติศาสตร์ไซเบอร์เนติกส์ วรรณกรรมวิทยศาสตร์ และการหลอมรวมสารสนเทศกับร่างกาย</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-1">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-sm">The Posthuman</h4>
+                            <p class="text-xs text-cyan-600 dark:text-cyan-400">Rosi Braidotti (2013)</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 pt-1">คัมภีร์หลักของ Critical Posthumanism ที่เสนอทฤษฎีจริยธรรมใหม่ในยุคชีวเทคโนโลยีและนิเวศวิทยา</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-1">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-sm">What is Posthumanism?</h4>
+                            <p class="text-xs text-cyan-600 dark:text-cyan-400">Cary Wolfe (2010)</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 pt-1">วิพากษ์สิทธิสัตว์ ภาษาศาสตร์ และระบบทฤษฎีเชิงปรัชญาเพื่อรื้อถอนมนุษย์เป็นศูนย์กลาง</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-1">
+                            <h4 class="font-heading font-bold text-slate-900 dark:text-white text-sm">When Species Meet</h4>
+                            <p class="text-xs text-cyan-600 dark:text-cyan-400">Donna Haraway (2008)</p>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 pt-1">การศึกษาความเชื่อมโยงลึกซึ้งระหว่างมนุษย์และสัตว์ร่วมสายพันธุ์ (Companion Species) ในชีวิตประจำวัน</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONCLUSION CARD -->
+            <section class="card-print bg-gradient-to-br from-slate-900 to-indigo-950 text-white rounded-3xl p-8 sm:p-12 text-center space-y-4 shadow-xl">
+                <i class="fa-solid fa-quote-left text-4xl text-cyan-400 opacity-60"></i>
+                <h2 class="font-heading text-2xl sm:text-3xl font-bold leading-snug max-w-3xl mx-auto">
+                    "Post-humanism ไม่ใช่จุดจบของมนุษย์ แต่เป็นจุดเริ่มต้นของการเรียนรู้ที่จะอยู่ร่วมกับสรรพสิ่งอย่างถ่อมตน"
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto font-light">
+                    เมื่อเราตระหนักว่ามนุษย์ไม่ได้แยกขาดจากธรรมชาติ สัตว์ และเครื่องจักร เราจึงจะสามารถสร้างอนาคตและจริยธรรมใหม่ที่ยั่งยืนในโลกยุคดิจิทัลได้อย่างแท้จริง
+                </p>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="no-print border-t border-slate-200 dark:border-slate-800 mt-16 py-8 text-center text-xs text-slate-500 dark:text-slate-400">
+        <p>© Post-humanism Interactive Academic E-Book Guide. Design for Academic &amp; Research Exploration.</p>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        
+        // 1. Dark Mode Toggle Logic
+        function toggleDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Initialize Theme from Saved Preference
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // 2. Reading Progress Bar & Scroll Spy
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+
+            // Scroll Spy logic for TOC
+            let sections = document.querySelectorAll("section[id]");
+            let scrollY = window.pageYOffset;
+
+            sections.forEach(current => {
+                let sectionHeight = current.offsetHeight;
+                let sectionTop = current.offsetTop - 120;
+                let sectionId = current.getAttribute("id");
+
+                let tocLink = document.querySelector(`.toc-link[href*='${sectionId}']`);
+                if (tocLink) {
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        tocLink.classList.add("bg-cyan-500/10", "text-cyan-600", "dark:text-cyan-400", "font-bold");
+                    } else {
+                        tocLink.classList.remove("bg-cyan-500/10", "text-cyan-600", "dark:text-cyan-400", "font-bold");
+                    }
+                }
+            });
+        };
+
+        // 3. Tab Switcher for Post-humanism Branches
+        function switchBranchTab(branch) {
+            const criticalDiv = document.getElementById('branchCritical');
+            const transDiv = document.getElementById('branchTrans');
+            const btnCritical = document.getElementById('tabBtnCritical');
+            const btnTrans = document.getElementById('tabBtnTrans');
+
+            if (branch === 'critical') {
+                criticalDiv.classList.remove('hidden');
+                transDiv.classList.add('hidden');
+                btnCritical.classList.add('active');
+                btnTrans.classList.remove('active');
+            } else {
+                criticalDiv.classList.add('hidden');
+                transDiv.classList.remove('hidden');
+                btnTrans.classList.add('active');
+                btnCritical.classList.remove('active');
+            }
+        }
+
+        // 4. Real-time Search / Filter System
+        function filterContent() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let sections = document.querySelectorAll('.searchable-section');
+
+            sections.forEach(section => {
+                let text = section.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    section.style.display = "";
+                } else {
+                    section.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
